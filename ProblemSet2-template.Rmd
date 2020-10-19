@@ -1,0 +1,118 @@
+---
+title: "Problem set2 Title"
+author: "Yuanzhe Yang, Zichen Gong, Yukun Gao, Yujie He"
+date: "October 19, 2020"
+output:
+  pdf_document: default
+  pdf_html: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Title of your Report
+Social Economic Conditions and Characteristics of Canadian Families
+
+# Name(s) of Author(s) 
+Yuanzhe Yang, Zichen Gong, Yukun Gao, Yujie He
+# Date
+October 19, 2020
+
+## Abstract
+The more the number of people in a given household, the more likely that the family is highly sensitive to socioeconomic conditions. On the other hand, if the more the children the larger the household, and the higher the age the more the likelihood for more family members, then old spouses at the age of 50 and above are more sensitive to socioeconomic conditions as compared to young married couples. The aim of the study is to quantitatively evaluate the condition based on historical data on survey done on families in Canada. All the data used in the analysis was collected in the year 2017. The socioeconomic conditions considered in the study were education, income per family, and occupation. After running the linear regression model on the chosen variables, age had strong statistical significance to the total number of children. On the other hand, household size and conditions variables also had high statistical significance to the total children found in a household. Therefore, the main conclusion was that the higher the age the higher the sensitivity to socioeconomic conditions as well as household size. 
+
+## Introduction
+Trickett et al. (1991), indicated that families get significantly affected by their type of socioeconomic status. Some of the major areas where this condition is strongly experienced include levels of stability, parenting mechanisms as well as the growth outcomes in children. Fundamentally, many family members who are living in poverty are likely to result into becoming victims of violence. 
+Again, Health (no date), has indicated that essential socio-economic conditions like job opportunities, level of income, safety in society, and communal supports can highly determine the quality of life for a human being. 
+On the other hand, a recent study done by De Tray (1977), illustrated that spouses who have been in marriage for a long time are likely also have more children. As a result, spouses that have lasted longer in marriage are likely to have large households in terms of children being the additional family members as compare to the newly started ones. 
+Based on this aspect, if the more the experience in marriage and family suggests an increase in the size of the household, then old age spouses are likely to be highly affected by socio economic conditions as compared to the young ones. In most cases, the expected impacts are adverse in large household the more likely the sensitivity of families to the socio economic conditions. However, a driving factor is the economic status for the families. Poor families are likely to experience adverse impacts from the socio-economic conditions as compared to wealthy ones. Nonetheless, the main focus of the study is that the more the number of people in a household the higher the more the sensitivity to socioeconomic conditions. 
+The aim of this study is to quantitatively assess the validity of the statement by evaluating the families living in Canada as the main example. This study environment was especially chosen due to the availability of public data on surveys relating to the status of families in the country. 
+
+## Data
+
+The Dataset was extracted from the Microdata Analysis and Subsetting with SDA online database hosted by the University of Toronto, Faculty of Arts and Science. Nonetheless, the code used to clean the raw data is as provided by Alexander and Caeteno (2020). The dataset constitutes of figures gathered from a survey based on family structures found in Canada. This information was sourced from respondents from Canadian families where the main condition was that each respondent had to be 15 years and above. As a result, the survey results also constitute of data about the social demographics of parents. Moreover, the data collection was based on stratified sampling where the involved personnel divided the data into different clusters and subgroups for the purpose of representing the larger population. 
+The target population in this case was involved persons with at least 15years and above living in Canada. The main focus was the residents of the Yukon, Northwest Territories as well as Nunavut. The main condition is that they had to be fulltime residents from various institutions. 
+The Frame was created through the use of two main components. The first one was telephone numbers that include both landline and cellular that are available to Statistics Canada based on different sources such as telephone companies and census of population. The second component was the address register that covers all dwellings found in the chosen ten provinces. This frames were efficient since 86% of the available phone numbers in the country are connected to the address register. 
+The total number of variables considered from the survey after performing a data cleanup was 77. This dataset is good since it provides an overall empirical view of structure of Canadian families from a wide perspective of quantitative variables and opinions.  Some of the important features include evaluation of families based on gender ages and occupation which is an important contribution to the study. The main drawback was that it was difficult to determine the purpose of certain variables in the study in the raw data form as they were not properly cleaned up.
+
+```{r}
+library(janitor)
+library(tidyverse)
+
+d <- read_csv("C:/Users/rmjes/OneDrive/Documents/2017/gss.csv")
+
+```
+
+## Model
+The data was analyzed through the use of the linear regression model in the Rstudio. This model was based on the following formula: 
+Total_children = a + B1age_first_child + B2age + B3feelings_life + B4hh_size + B5conditions + e
+In this case, total children are considered as the dependent variables. This aspect is based on the fact that they are attributed to being the main contributor to the size of a house hold. On the other hand, age, age_of_first_child, feelings_life, and conditions are the independent variables. They are essential in the study as they are the main determinants for socioeconomic standards in families. It was possible to assess how the total number of children in a family relate to important variables such as age of the parent and the age of the first child. Moreover, it was important to establish the relationship between total children in a home to the house_hold size and the feelings to life that the guardians may be having. The results for running the regression are discussed in the segment below.
+
+
+## Results
+The first step in understanding the data was to run a descriptive statistics code for the purpose of understanding how each of the variables relate to each other and their common attributes. The results for the descriptive statistics are as follows:
+
+```{r}
+summary(d)
+```
+Figure 1: Descriptive Statistics
+
+Overall, some aspects to note in figure one is that the person with highest age considered in the survey was at 80years. Another important facility to note in the analysis is that the highest number of total children in a family was 7.The maximum house hold size at any given time in the sample was 6 people.
+
+
+
+Before running the linear regression, it was critical to establish the scatter plot between the variables for the purpose of determining how valid the results would be after running the regression. The results gained after running the regression were as follows:
+
+```{r}
+head(d)
+
+plot(d$total_children, d$age, xlab = 'Total Children per Household', ylab = 'Years old with Total Children', main= 'Regression Total Children to Age')
+```
+Figure 2: Scatter Plot
+
+Essentially, total children and age variables in the study, represent some linear correlation based on the types of trends they depicted from the results and analysis. As noted in figure one representation, the more the higher the age the more the number of children per family. The tabulation shows that they have a steady increase in a linear format as they are concentrated in one place as compared to another. As a result, it was possible to run the regression model as the results would be viable based on the topic of study. The regression results were as follows:
+
+```{r}
+mod <- lm(total_children ~ age + age_first_child
+           + feelings_life + hh_size + conditions,d)
+
+summary(mod)
+```
+Figure 3: Regression Model Results
+
+The results indicate there is a strong statistical significance between the variables. Based on the nature of the study, the first condideration is the type of relationship between age and total_children. The results shown in figure one showed that there was statistical significance at the 0.001 critical levels. This outcome indicates that the higher the age the more the contribution towards total children in a family. The outcome is further supported by the t value of 21.204. Essentially, given that the bigger the absolute value of test-statistic, the smaller the p-value, and therefore ability to reject the null hypothesis, it is evident then that age plays a significant role in affecting the number of chidren in a family. A similar outcome is shown for the conditions variable where the p-value was significant at 0.001 critical level and the t-value was 7.057. 
+
+In terms of the R-squared value, the results indicate that 0.5079/ 50.79% variance of the total_children can be predicted from the variables age and conditions. The only control variable that showed a negative relationship was the feelings_life with a p-value of 0.12. This aspect indicates that feelings play a minimal role in controlling sensitivity on socioeconomic conditions with regards to the size of a household.
+
+## Discussion
+The number of years spent in marriage do not only contribute old age for spouses but also the size of the household (Lerman, 2002). A common aspect in this case is that at the early ages of marriage couples are less sensitive to socioeconomic conditions such as income, education, and occupation. However, an increase in the members of a household contributes towards better awareness on the living factors. In essence, a household of two people is likely to have minimal pressure towards meeting obligations as compared to a household of ten family members where the needs are more excessive. Evidently, the analysis shows that there is a strong relationship between age, household size, and total population of children in a family. 
+
+# Weaknesses
+
+First, there was a limitation of data that would support the validity of study. Essentially, it would have been critical to evaluate the household size in terms of satisfaction. This way it would possible to establish whether size of household also contributes to experienced adverse effects in terms socio economic conditions.    
+
+# Next Steps
+
+Based on the outcomes of the study, it is important to evaluate the how socioeconomic conditions and age relate to types of occupation by family members living in large household homes. This way it is possible to establish whether experience in a given occupation contributes towards the levels of sensitivity towards socioeconomic conditions. 
+
+## References
+Alexander, R. and Caeteno, S. (2020) GSS Code Cleaning 2017, University of Toronto. Available at: rohan.alexander@utoronto.ca.
+
+Che, J. and Chen, J. (2001) ‘Food insecurity in Canadian households.’, Health reports / Statistics Canada, Canadian Centre for Health Information = Rapports sur la santé / Statistique Canada, Centre canadien d’information sur la santé.
+
+Health, C. (no date) Social and Economic Factors | County Health Rankings & Roadmaps. Available at: https://www.countyhealthrankings.org/explore-health-rankings/measures-data-sources/county-health-rankings-model/health-factors/social-and-economic-factors (Accessed: 19 October 2020).
+
+Lerman, R. I. (2002) ‘Marriage and the Economic Well-Being of Families with Children: A Review of the Literature’, (00).
+
+De Tray, D. N. (1977) ‘Age of marriage and fertility: a policy review.’, Pakistan development review, 16(1), pp. 89–100. doi: 10.30541/v16i1pp.89-100.
+
+Trickett, P. K. et al. (1991) ‘Relationship of Socioeconomic Status to the Etiology and Developmental Sequelae of Physical Child Abuse’, Developmental Psychology. doi: 10.1037/0012-1649.27.1.148.
+
+Access the project code at: https://github.com/Yunglao12/Updated-R-Statistics-Code.git
+
+
+
+
+
+
