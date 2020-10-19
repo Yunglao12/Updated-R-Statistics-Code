@@ -1,5 +1,5 @@
 ---
-title: "Problem set2 Title"
+title: "Social Economic Conditions and Characteristics of Canadian Families"
 author: "Yuanzhe Yang, Zichen Gong, Yukun Gao, Yujie He"
 date: "October 19, 2020"
 output:
